@@ -23,9 +23,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-1dmiie37m@e$bn!s_r&tnq1%lcjdk#rg41&=sqy=!4(0hb!ji2'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['twitteremotionapp.herokuapp.com', '127.0.0.1', '54.197.104.204']
+ALLOWED_HOSTS = ['twitteremotionapp.herokuapp.com', '127.0.0.1', '54.197.104.204', '*']
 
 
 # Application definition
