@@ -21,4 +21,5 @@ def index(request):
         fig.update_traces(hoverinfo='label+percent+name', textinfo='none')
         fig.update_layout(plot_bgcolor='rgb(18,18,18)',paper_bgcolor ='rgb(18,18,18)', font_color = 'rgb(255,255,255)')
         pie = plotly.offline.plot(fig, include_plotlyjs=False, output_type='div')
-    return render(request, "index.html", context={'plot_div': pie})
+        return render(request, "index.html", context={'plot_div': pie})
+    return render(request, "index.html")
