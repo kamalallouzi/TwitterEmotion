@@ -1,4 +1,3 @@
-from datasets import load_dataset
 from labels import mapping
 # go_emotions = load_dataset("go_emotions")
 import pandas as pd
@@ -6,9 +5,7 @@ import tez
 import torch
 import torch.nn as nn
 import transformers
-from sklearn import metrics, model_selection, preprocessing
-from transformers import AdamW, get_linear_schedule_with_warmup
-
+device = torch.device("cpu")
 class EmotionClassifier(tez.Model):
     def __init__(self, num_train_steps, num_classes):
         super().__init__()
@@ -60,5 +57,5 @@ tokenizer = transformers.SqueezeBertTokenizer.from_pretrained(
 n_train_steps = int(43410 / 32 * 10)
 n_labels = len(mapping)
 model = EmotionClassifier(n_train_steps, n_labels)
+model.to(device)
 model.load("export/model.bin")
-model.to(torch.device("cpu"))
