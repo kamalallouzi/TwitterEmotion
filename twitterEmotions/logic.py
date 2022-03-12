@@ -45,10 +45,10 @@ def score_sentence(text, topn=28):
                                        padding="max_length",
                                        truncation=True)
         ids = inputs["input_ids"]
-        ids = torch.LongTensor(ids).cuda().unsqueeze(0)
+        ids = torch.LongTensor(ids).cpu().unsqueeze(0)
 
         attention_mask = inputs["attention_mask"]
-        attention_mask = torch.LongTensor(attention_mask).cuda().unsqueeze(0)
+        attention_mask = torch.LongTensor(attention_mask).cpu().unsqueeze(0)
 
         output = model.forward(ids, attention_mask)[0]
         output = torch.sigmoid(output)
