@@ -1,0 +1,38 @@
+{% load bootstrap5 %}
+{% bootstrap_css %}
+{% load static %}
+
+{% bootstrap_javascript %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        body {background-color: 121212;}
+      </style>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Twitter Emotion</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+    <nav class="navbar navbar-light bg-dark">
+        <a class="navbar-brand text-light">
+            <img src="{% static 'logo.png' %}" alt="logo" class="w-25">
+            Twitter Emotion
+        </a>
+      </nav>
+    <div>
+        <form method="POST">
+            {% csrf_token %}
+            <input id="search" name="search" type="text" class="query-search" placeholder="Search...">
+            <input class="btn btn-primary" type="submit" value="submit">
+        </form>
+    </div>
+    {% autoescape off %}
+    <div style="width:600;height:500">
+        {{plot_div|safe}}
+    </div>
+    {% endautoescape %}
+</body>
+</html>
