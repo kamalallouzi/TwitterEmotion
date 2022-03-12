@@ -21,6 +21,15 @@ class EmotionClassifier(tez.Model):
         loss = self.loss(output, targets)
         acc = self.monitor_metrics(output, targets)
         return output, loss, acc
+    def load(self, model_path, weights_only=False, device="cpu"):
+        self.device = device
+        if next(self.parameters()).device != self.device:
+            self.to(self.device)
+        model_dict = torch.load(model_path, map_location=torch.device(device))
+        if weights_only:
+            self.load_state_dict(model_dict)
+        else:
+            self.load_state_dict(model_dict["state_dict"])
 def score_sentence(text, topn=28):
     temp_dict = {}
     max_len = 35
@@ -59,3 +68,4 @@ n_labels = len(mapping)
 model = EmotionClassifier(n_train_steps, n_labels)
 model.to(device)
 model.load("export/model.bin")
+model.to(device)
