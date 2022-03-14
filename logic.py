@@ -1,5 +1,4 @@
 from labels import mapping
-# go_emotions = load_dataset("go_emotions")
 import pandas as pd
 import tez
 import torch
