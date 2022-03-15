@@ -23,7 +23,7 @@
       </style>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <title>Twitter Emotion</title>
     <link rel="shortcut icon" type="image/png" href="{% static 'favicon.ico' %}"/>
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
@@ -56,11 +56,9 @@
                 <input type="search" class=" form-control query-search" id="search" name="search" type="text"/ placeholder="Search Twtter User...">
                 <!-- <input   class="btn btn-primary form-control" type="submit" value="submit"> -->
             </form>
-<div class="col-6" style="display: inline-block">
+<div class="col-12" style="display: inline-block">
     {% autoescape off %}
-    <div style="width:500;height:500">
         {{plot_div|safe}}
-    </div>
     {% endautoescape %}
 </div>
 {% if d %}  
