@@ -71,10 +71,10 @@ def index(request):
             data = json.loads(json_records)
             return render(request, "index.html", context={'plot_div': pie, "d": data})
     except AttributeError:
-        messages.success(request, "Please input a valid username!")
+        messages.success(request, "Please input a valid username! (User might be private)")
         return redirect('/')
     except tweepy.errors.HTTPException:
-        messages.success(request, "Please input a valid username!")
+        messages.success(request, "Please input a valid username! (User might be private)")
         return redirect('/')
     except ZeroDivisionError:
         messages.success(request, "This user does not have any tweets!")
