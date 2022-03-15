@@ -50,7 +50,7 @@ def index(request):
             access_token_secret="mSTEfjO4213yyVJGX8cbvVxAybJCF5V9yMlZTbKF6GDSc"
             client = Client(bearer_token='AAAAAAAAAAAAAAAAAAAAAMjpaAEAAAAAmaitCSGU7BakigfPCpwOkQjlNok%3DmAQPrE7BjlUgt5GuLv4Caa3BQq9vTtNAGBEsuPKWmX17p6mKjk', consumer_key=consumer_key, consumer_secret=consumer_secret, access_token=access_token, access_token_secret=access_token_secret)
             user = client.get_user(username = var)
-            tweets = Paginator(client.get_users_tweets, id=user.data.id, tweet_fields=['context_annotations','created_at'], max_results=5).flatten(limit=5)
+            tweets = Paginator(client.get_users_tweets, id=user.data.id, tweet_fields=['context_annotations','created_at'], max_results=100).flatten(limit=100)
             for tweet in tweets:
                 numSentences += 1
                 temp = score_sentence(str(tweet))
