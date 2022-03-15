@@ -1,5 +1,6 @@
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.contrib import messages
 from logic import score_sentence
 import tweepy
 from tweepy import API, Client, Paginator, Cursor, OAuthHandler
@@ -69,13 +70,13 @@ def index(request):
             json_records = df.reset_index().to_json(orient ='records')
             data = json.loads(json_records)
             return render(request, "index.html", context={'plot_div': pie, "d": data})
-    except tweepy.errors.HTTPException:
-        errorBlank = "Please input non-blank username!"
-        return render(request, "index.html", context={'Blank': errorBlank})
-    except ZeroDivisionError:
-        error404 = "This user does not have any tweets!"
-        return render(request, "index.html", context={'Blank': error404})
     except AttributeError:
-        error404 = "Please input a valid username!"
-        return render(request, "index.html", context={'Blank': error404})
+        messages.success(request, "Please input a valid username!")
+        return redirect('/')
+    except tweepy.errors.HTTPException:
+        messages.success(request, "Please input a valid username!")
+        return redirect('/')
+    except ZeroDivisionError:
+        messages.success(request, "This user does not have any tweets!")
+        return redirect('/')
     return render(request, "index.html")
