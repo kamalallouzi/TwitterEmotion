@@ -1,0 +1,88 @@
+{% load bootstrap5 %}
+{% bootstrap_css %}
+{% load static %}
+{% bootstrap_javascript %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        body {background-color: 121212;}
+        *{padding: 5px}
+        .has-search .form-control {
+            padding-left: 2.375rem;
+        }
+        .has-search .form-control-feedback {
+            position: absolute;
+            z-index: 2;
+            display: block;
+            line-height: 1.6rem;
+            text-align: center;
+            pointer-events: none;
+            color: #000;
+        }
+      </style>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>Twitter Emotion</title>
+    <link rel="shortcut icon" type="image/png" href="{% static 'favicon.ico' %}"/>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+    
+    <nav class="navbar navbar-light bg-dark container-fluid">
+        <a class="navbar-brand text-light">
+            <img src="{% static 'logo.png' %}" alt="logo" class="w-25">
+            Twitter Emotion
+        </a>
+      </nav>
+
+      {% if messages %}
+      <div class="alert alert-danger m-2 col-5" role="alert">
+      {% for msg in messages %}
+        {{msg}}
+      {% endfor %}
+      </div>
+      {% endif %}
+      <script>
+        $(".alert").alert('close')
+      </script>
+      <div class="container-fluid">
+            <form method="POST"  class="form-outline form-group has-search  col-5">
+                {% csrf_token %}
+                <!-- <input id="search" name="search" type="text" class="query-search" placeholder="Search..."> -->
+                <span class="fa fa-search form-control-feedback"></span>
+                <input type="search" class=" form-control query-search" id="search" name="search" type="text"/ placeholder="Search Twtter User...">
+                <!-- <input   class="btn btn-primary form-control" type="submit" value="submit"> -->
+            </form>
+<div class="col-12" style="display: inline-block">
+    {% autoescape off %}
+        {{plot_div|safe}}
+    {% endautoescape %}
+</div>
+{% if d %}  
+<div class="col-4">
+    <table class="table table-dark table-striped">
+        <thead>
+          <tr>
+            <th>Emotion</th>
+            <th>Percent</th>
+          </tr>
+        </thead>
+    <tbody>
+        {% for i in d %}
+          <tr>
+            <td>{{i.Emotion}}</td>
+            <td>{{i.Percent | floatformat:2}}</td>
+          </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endif %}
+</div>  
+</div>
+
+</body>
+</html>
